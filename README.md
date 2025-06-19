@@ -1,4 +1,4 @@
-# Budget Tracker 💰
+# Simple Budgeting 💰
 
 A modern, responsive budget tracking application built with HTML, CSS (Tailwind), and JavaScript. Track your expenses, manage your budget, and visualize your spending with an intuitive interface.
 
@@ -43,6 +43,8 @@ A modern, responsive budget tracking application built with HTML, CSS (Tailwind)
    - `index.html`
    - `script.js`
 3. Open `index.html` in your web browser
+
+(or you can just access it here[https://simple-budgeting.vercel.app/]
 
 ### Usage
 
