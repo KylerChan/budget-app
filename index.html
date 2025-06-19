@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-gradient-to-r from-gray-50 to-gray-100 text-gray-900 font-sans">
+  <div id="totalMoneyDisplay" class="absolute top-4 right-4 p-3 rounded-lg text-green-700 text-2xl">
+    $<span id="displayMoney">0.00</span>
+  </div>  
+  <header class="py-10">
+    <div class="container mx-auto text-center">
+      <h1 class="text-4xl md:text-5xl font-bold">Budget Tracker</h1>
+    </div>
+  </header>
+  <main class="container mx-auto px-4">
+    <section class="mb-8 max-w-md mx-auto">
+      <form id="totalMoneyForm" class="bg-white shadow rounded-lg p-6">
+        <label for="totalMoney" class="block text-lg font-semibold mb-2">Total Money Available</label>
+        <div class="relative mb-4">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+           <input type="number" 
+                 id="totalMoney" 
+                 name="totalMoney"
+                 min="0" 
+                 step="0.01" 
+                 placeholder="Enter amount (e.g., 1250.75)"
+                 class="pl-8 bg-white border border-gray-300 rounded-lg p-2 w-full text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                 required>
+        </div>
+        <button id="submitMoney" type="submit" class="w-full bg-blue-500 hover:bg-blue-600 transition duration-300 text-white font-semibold rounded-lg p-2">
+          Submit
+        </button>
+
+        <div class="mt-[15px]">
+          <div class="flex items-center">
+            <p class="text-red-600 ml-2" id="error"></p>
+          </div>
+        </div>
+      </form>
+    </section>
+    
+    
+    <section>
+      <div class="bg-white shadow rounded-lg p-6">
+        <button id="deleteAllSpendings" class="w-[200px] bg-red-500 hover:bg-red-600 transition duration-300 text-white font-semibold rounded-lg p-2 mb-[20px]"><i class="fa-solid fa-trash mr-[10px]"></i>Delete All Spendings</button>  
+        <button id="sortAllByDate" class="w-[200px] bg-blue-500 hover:bg-blue-600 transition duration-300 text-white font-semibold rounded-lg p-2 mb-[20px] ml-2"><i class="fa-solid fa-sort mr-[10px]"></i>Sort all by Date</button>
+        <button id="sortAllByName" class="w-[200px] bg-blue-500 hover:bg-blue-600 transition duration-300 text-white font-semibold rounded-lg p-2 mb-[20px] ml-2"><i class="fa-solid fa-font mr-[10px]"></i>Sort all by Name</button>
+        <button id="sortAllByAmount" class="w-[200px] bg-blue-500 hover:bg-blue-600 transition duration-300 text-white font-semibold rounded-lg p-2 mb-[20px] ml-2"><i class="fa-solid fa-money-bills mr-[10px]"></i>Sort all by Amount</button>
+        <button id="resetMoney" class="w-[200px] bg-blue-500 hover:bg-blue-600 transition duration-300 text-white font-semibold rounded-lg p-2 mb-[20px] ml-2"><i class="fa-solid fa-trash-arrow-up mr-[10px]"></i>Reset Money</button>
+        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"> 
+          <article id="addnewspendings" tabindex="0" role="button" aria-label="Add new spending" class="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer transition-transform duration-300 hover:scale-105 focus:outline-none min-h-[120px]">
+            <span class="font-semibold">Add New Spending</span>
+          </article>
+        </div>
+      </div>
+    </section> 
+  </main>
+
+  <dialog id="popupModal" class="bg-white rounded-lg p-6 shadow-lg w-80 max-w-full">
+    <form method="dialog" class="flex flex-col" onsubmit="return false;" id="modalForm">
+      <h2 class="text-xl font-bold mb-4">Add New Spending</h2>
+      <label for="titleOfSpending" class="text-sm font-semibold mb-1">Description</label>
+      <input type="text" name="titleOfSpending" id="titleOfSpending" placeholder="Description" class="border border-gray-300 rounded-lg p-2 w-full mb-4" required>
+
+      <label for="amountSpending" class="text-sm font-semibold mb-1">Amount</label>
+      <div class="relative mb-4">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+         <input id="amountSpending" type="number" min="0" step="0.01" placeholder="0.00" class="pl-8 border border-gray-300 rounded-lg p-2 w-full" required>
+      </div>
+
+      <label for="spendingDate" class="text-sm font-semibold mb-1">Date</label>
+      <input type="date" id="spendingDate" class="border border-gray-300 rounded-lg p-2 mb-4 w-full" required>
+
+      <div class="flex items-center mb-4">
+        <input id="freeOption" type="checkbox" class="form-checkbox h-5 w-5 text-blue-500 hover:cursor-pointer">
+        <label for="freeOption" class="ml-2 text-sm hover:cursor-pointer">Free</label>
+      </div>
+      
+      <div class="flex justify-end">
+        <button id="closeModal" type="button" class="bg-gray-500 hover:bg-gray-600 transition duration-300 text-white px-4 py-2 rounded-lg mr-2 hover:cursor-pointer">Cancel</button>
+        <button id="addSpendingButton" type="submit" class="bg-blue-500 hover:bg-blue-600 transition duration-300 text-white px-4 py-2 rounded-lg hover:cursor-pointer">Save</button>
+      </div>
+    </form> 
+  </dialog>
+
+  <dialog id="editModal" class="bg-white rounded-lg p-6 shadow-lg w-80 max-w-full">
+    <form method="dialog" class="flex flex-col" onsubmit="return false;" id="editForm">
+      <h2 class="text-xl font-bold mb-4">Edit Spending</h2>
+      <label for="editTitle" class="text-sm font-semibold mb-1">Description</label>
+      <input type="text" id="editTitle" placeholder="Description" class="border border-gray-300 rounded-lg p-2 w-full mb-4" required>
+
+      <label for="editAmount" class="text-sm font-semibold mb-1">Amount</label>
+      <div class="relative mb-4">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+         <input id="editAmount" type="number" min="0" step="0.01" placeholder="0.00" class="pl-8 border border-gray-300 rounded-lg p-2 w-full" required>
+      </div>
+
+      <label for="editDate" class="text-sm font-semibold mb-1">Date</label>
+      <input type="date" id="editDate" class="border border-gray-300 rounded-lg p-2 mb-4 w-full" required>
+      
+      <div class="flex justify-end">
+        <button id="cancelEdit" type="button" class="bg-gray-500 hover:bg-gray-600 transition duration-300 text-white px-4 py-2 rounded-lg mr-2 hover:cursor-pointer">Cancel</button>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 transition duration-300 text-white px-4 py-2 rounded-lg hover:cursor-pointer">Update</button>
+      </div>
+    </form> 
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
