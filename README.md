@@ -44,7 +44,7 @@ A modern, responsive budget tracking application built with HTML, CSS (Tailwind)
    - `script.js`
 3. Open `index.html` in your web browser
 
-(or you can just access it here[https://simple-budgeting.vercel.app/]
+You can also access it directly at: https://simple-budgeting.vercel.app/
 
 ### Usage
 
