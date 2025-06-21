@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colors = ['blue', 'green', 'red', 'purple', 'indigo'];
     let colorIndex = 0;
 
+    // Getting all necessary elements
     const totalMoneyForm = document.getElementById('totalMoneyForm');
     const totalMoneyInput = document.getElementById('totalMoney');
     const displayMoney = document.getElementById('displayMoney');
@@ -28,6 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetMoney = document.getElementById('resetMoney')
 
     //--------------------------------------------------------------------\\
+
+    function instructions() {
+        window.alert("To remove a spending, please left click the spending.")
+        window.alert("To edit a spending, please right click the spending.")
+    }
+
+    instructions()
 
     resetMoney.addEventListener('click', function() {
         if (displayMoney.classList.contains('text-green-700')) {
